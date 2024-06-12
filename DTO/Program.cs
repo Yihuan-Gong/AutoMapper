@@ -10,6 +10,10 @@ namespace DTO
     {
         static void Main(string[] args)
         {
+
+            object obj = "Hello";
+            Console.WriteLine(obj.GetType().Name);
+
             var studentA = new StudentA
             {
                 Id = 1,
@@ -22,6 +26,9 @@ namespace DTO
 
 
             StudentB studentB = mapper.Map(studentA);
+
+
+
 
             Console.ReadKey();
         }
