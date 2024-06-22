@@ -46,7 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\PropertyType.cs" />
+    <Compile Include="Grade.cs" />
     <Compile Include="Mapper.cs" />
+    <Compile Include="MappingMethod\ArrayMappingMethod.cs" />
+    <Compile Include="MappingMethod\BasicMappingMethod.cs" />
+    <Compile Include="MappingMethod\ClassMappingMethod.cs" />
+    <Compile Include="MappingMethod\CollectionMappingMethod.cs" />
+    <Compile Include="MappingMethod\EnumMappingMethod.cs" />
+    <Compile Include="MappingMethod\MappingMethod.cs" />
+    <Compile Include="Extension\TypeExtension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentA.cs" />
@@ -55,5 +64,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
