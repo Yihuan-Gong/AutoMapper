@@ -14,19 +14,21 @@ namespace DTO.MappingMethod
         {
             if (type == null) throw new ArgumentNullException("type");
 
-            if (type == typeof(string))
+            Type underlyingType = Nullable.GetUnderlyingType(type) ?? type;
+
+            if (underlyingType == typeof(string))
                 return PropertyType.Basic;
 
-            if (type.IsArray)
+            if (underlyingType.IsArray)
                 return PropertyType.Array;
 
-            if (type.IsEnum)
+            if (underlyingType.IsEnum)
                 return PropertyType.Enum;
 
-            if (type.IsClass)
+            if (underlyingType.IsClass)
                 return PropertyType.Class;
 
-            if (typeof(IEnumerable).IsAssignableFrom(type))
+            if (typeof(IEnumerable).IsAssignableFrom(underlyingType))
                 return PropertyType.Collection;
 
             return PropertyType.Basic;

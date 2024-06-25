@@ -12,7 +12,7 @@ namespace DTO.MappingMethod
     {
         public override void Map(PropertyInfo sourceProperty, PropertyInfo destProperty, object sourceObject, object destObject, Action<object, object> Mapper = null)
         {
-            var enumType = destProperty.PropertyType;
+            var enumType = Nullable.GetUnderlyingType(destProperty.PropertyType) ?? destProperty.PropertyType;
             var parsedEnum = System.Enum.Parse(enumType, sourceProperty.GetValue(sourceObject).ToString());
             var enumInstance = Convert.ChangeType(parsedEnum, enumType);
             destProperty.SetValue(destObject, enumInstance);

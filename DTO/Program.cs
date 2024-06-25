@@ -32,7 +32,6 @@ namespace DTO
                     {
                         Id = 3,
                         Name = "William",
-                        Grade = "B",
                     },
                 }
             };
