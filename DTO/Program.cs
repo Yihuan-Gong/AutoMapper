@@ -19,21 +19,21 @@ namespace DTO
                 Id = 1,
                 Name = "Alice",
                 Grade = "B",
-                Friends = new StudentA[]
-                {
-                    new StudentA
-                    {
-                        Id = 2,
-                        Name = "Bob",
-                        Grade = "A",
-                    },
+                //Friends = new StudentA[]
+                //{
+                //    new StudentA
+                //    {
+                //        Id = 2,
+                //        Name = "Bob",
+                //        Grade = "A",
+                //    },
 
-                    new StudentA
-                    {
-                        Id = 3,
-                        Name = "William",
-                    },
-                }
+                //    new StudentA
+                //    {
+                //        Id = 3,
+                //        Name = "William",
+                //    },
+                //}
             };
 
             var mapper = new Mapper<StudentA, StudentB>();

@@ -10,9 +10,11 @@ namespace DTO.MappingMethod
 {
     internal class BasicMappingMethod : MappingMethod
     {
-        public override void Map(PropertyInfo sourceProperty, PropertyInfo destProperty, object sourceObject, object destObject, Action<object, object> Mapper = null)
+        public override void Map(object sourceObject, ref object destObject, Action<object, object> Mapper = null, Dictionary<string, string> map = null)
         {
-            destProperty.SetValue(destObject, sourceProperty.GetValue(sourceObject));
+            destObject = sourceObject;
+
+            //destProperty.SetValue(destObject, sourceProperty.GetValue(sourceObject));
         }
     }
 }

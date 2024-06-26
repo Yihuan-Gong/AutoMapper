@@ -45,28 +45,35 @@ namespace DTO
 
         private void Map(object source, object dest)
         {
-            
-            var sourceProperties = source.GetType().GetProperties();
-            foreach (PropertyInfo sourceProperty in sourceProperties)
-            {
-                string destPropertyName = (map.ContainsKey(sourceProperty.Name)) ?
-                    map[sourceProperty.Name] : sourceProperty.Name;
+            PropertyType destPropertyType = dest.GetType().GetTypeProperty();
 
-                if (sourceProperty.GetValue(source) == null)
-                    continue;
+            string methodName = $"DTO.MappingMethod.{destPropertyType}MappingMethod";
+            var obj = Type.GetType(methodName);
+            var mappingMethod = (MappingMethod.MappingMethod)Activator.CreateInstance(obj);
+            mappingMethod.Map(source, ref dest, Map, map);
 
-                PropertyInfo destProperty = dest.GetType().GetProperty(destPropertyName);
-                if (destProperty == null)
-                    continue;
 
-                PropertyType propertyType = destProperty.PropertyType.GetTypeProperty();
+            //var sourceProperties = source.GetType().GetProperties();
+            //foreach (PropertyInfo sourceProperty in sourceProperties)
+            //{
+            //    string destPropertyName = (map.ContainsKey(sourceProperty.Name)) ?
+            //        map[sourceProperty.Name] : sourceProperty.Name;
 
-                string methodName = $"DTO.MappingMethod.{propertyType}MappingMethod";
-                var obj = Type.GetType(methodName);
-                var mappingMethod = (MappingMethod.MappingMethod)Activator.CreateInstance(obj);
-                mappingMethod.Map(sourceProperty, destProperty, source, dest, Map);
+            //    if (sourceProperty.GetValue(source) == null)
+            //        continue;
 
-            }
+            //    PropertyInfo destProperty = dest.GetType().GetProperty(destPropertyName);
+            //    if (destProperty == null)
+            //        continue;
+
+            //    PropertyType propertyType = destProperty.PropertyType.GetTypeProperty();
+
+            //    string methodName = $"DTO.MappingMethod.{propertyType}MappingMethod";
+            //    var obj = Type.GetType(methodName);
+            //    var mappingMethod = (MappingMethod.MappingMethod)Activator.CreateInstance(obj);
+            //    mappingMethod.Map(sourceProperty, destProperty, source, dest, Map);
+
+            //}
         }
     }
 }

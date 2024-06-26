@@ -10,11 +10,10 @@ namespace DTO.MappingMethod
     internal abstract class MappingMethod
     {
         public abstract void Map(
-            PropertyInfo sourceProperty,
-            PropertyInfo destProperty,
             object sourceObject,
-            object destObject,
-            Action<object, object> Mapper = null
+            ref object destObject,
+            Action<object, object> Mapper = null,
+            Dictionary<string, string> map = null
         );
     }
 }
