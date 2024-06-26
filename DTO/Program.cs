@@ -10,39 +10,39 @@ namespace DTO
     {
         static void Main(string[] args)
         {
+            // Test 1
+            var mapper1 = new Mapper<GradeA, GradeB>();
+            var gradeB = mapper1.Map(GradeA.B);
 
-            object obj = "Hello";
-            Console.WriteLine(obj.GetType().Name);
 
+            // Test 2
             var studentA = new StudentA
             {
                 Id = 1,
                 Name = "Alice",
-                Grade = "B",
-                //Friends = new StudentA[]
-                //{
-                //    new StudentA
-                //    {
-                //        Id = 2,
-                //        Name = "Bob",
-                //        Grade = "A",
-                //    },
+                Grade = GradeA.A,
+                Friends = new StudentA[]
+                {
+                    new StudentA
+                    {
+                        Id = 2,
+                        Name = "Bob",
+                        Grade = GradeA.B,
+                    },
 
-                //    new StudentA
-                //    {
-                //        Id = 3,
-                //        Name = "William",
-                //    },
-                //}
+                    new StudentA
+                    {
+                        Id = 3,
+                        Name = "William",
+                    },
+                }
             };
 
             var mapper = new Mapper<StudentA, StudentB>();
             mapper.ForMember(x => x.Id, y => y.StudentId)
                   .ForMember(x => x.Name, y => y.StudentName);
 
-
             StudentB studentB = mapper.Map(studentA);
-
 
 
 

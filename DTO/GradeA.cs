@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal enum Grade
+    internal enum GradeA
     {
         A, B, C, F
     }

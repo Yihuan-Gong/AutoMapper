@@ -19,12 +19,15 @@ namespace DTO.MappingMethod
         //    Mapper.Invoke(sourceValue, destValue);
         //    destProperty.SetValue(destObject, destValue);
         //}
-        public override void Map(object sourceObject, ref object destObject, Action<object, object> Mapper = null, Dictionary<string, string> map = null)
+
+
+        public override object Map(object sourceObject, Type destType, Func<object, Type, object> Mapper = null, Dictionary<string, string> map = null)
         {
             if (Mapper == null)
-                return;
+                return new object();
 
             var sourceChildProperties = sourceObject.GetType().GetProperties();
+            var destObject = Activator.CreateInstance(destType);
             foreach (PropertyInfo sourceChildProperty in sourceChildProperties)
             {
                 string destChildPropertyName = (map.ContainsKey(sourceChildProperty.Name)) ?
@@ -33,15 +36,16 @@ namespace DTO.MappingMethod
                 if (sourceChildProperty.GetValue(sourceObject) == null)
                     continue;
 
-                PropertyInfo destChildProperty = destObject.GetType().GetProperty(destChildPropertyName);
+                PropertyInfo destChildProperty = destType.GetProperty(destChildPropertyName);
                 if (destChildProperty == null)
                     continue;
 
                 object sourceChildObject = sourceChildProperty.GetValue(sourceObject);
-                object destChildObject = destChildProperty.PropertyType == typeof(string) ?
-                    "" : Activator.CreateInstance(destChildProperty.PropertyType);
-                Mapper.Invoke(sourceChildObject, destChildObject);
+                object destChildObject = Mapper.Invoke(sourceChildObject, destChildProperty.PropertyType);
+                destChildProperty.SetValue(destObject, destChildObject);
             }
+
+            return destObject;
         }
     }
 }

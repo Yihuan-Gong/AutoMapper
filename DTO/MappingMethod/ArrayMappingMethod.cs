@@ -10,31 +10,30 @@ namespace DTO.MappingMethod
 {
     internal class ArrayMappingMethod : MappingMethod
     {
-        public override void Map(object sourceObject, ref object destObject, Action<object, object> Mapper = null, Dictionary<string, string> map = null)
+        public override object Map(object sourceObject, Type destType, Func<object, Type, object> Mapper = null, Dictionary<string, string> map = null)
         {
             if (Mapper == null)
-                return;
+                return new object();
 
-            var destElementType = GetElementType(destObject.GetType());
+            var destElementType = GetElementType(destType);
 
             var destListType = typeof(List<>).MakeGenericType(destElementType);
             var destList = (IList)Activator.CreateInstance(destListType);
 
             var sourceValue = (IEnumerable)sourceObject;
             if (sourceValue == null)
-                return;
+                return new object();
             foreach (var sourceElementValue in sourceValue)
             {
-                var destElementValue = Activator.CreateInstance(destElementType);
-                Mapper.Invoke(sourceElementValue, destElementValue);
-
+                var destElementValue = Mapper.Invoke(sourceElementValue, destElementType);
                 destList.Add(destElementValue);
             }
 
             var array = Array.CreateInstance(destElementType, destList.Count);
             destList.CopyTo(array, 0);
-            destObject = array;
+            return array;
         }
+
 
         //public override void Map(PropertyInfo sourceProperty, PropertyInfo destProperty, object sourceObject, object destObject, Action<object, object> Mapper = null)
         //{

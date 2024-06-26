@@ -13,7 +13,7 @@ namespace DTO
 
         public int StudentId { get; set; }
         public string StudentName { set; get; }
-        public Grade? Grade { set; get; }
+        public GradeB? Grade { set; get; }
 
         public StudentB[] Friends { get; set; }
     }

@@ -47,7 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\PropertyType.cs" />
-    <Compile Include="Grade.cs" />
+    <Compile Include="GradeB.cs" />
+    <Compile Include="GradeA.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="MappingMethod\ArrayMappingMethod.cs" />
     <Compile Include="MappingMethod\BasicMappingMethod.cs" />

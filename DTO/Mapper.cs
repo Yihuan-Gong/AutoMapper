@@ -38,19 +38,18 @@ namespace DTO
 
         public Tdest Map(Tsource source)
         {
-            Tdest result = new Tdest();
-            Map(source, result);
-            return result;
+            var result = Map(source, typeof(Tdest));
+            return (Tdest)result;
         }
 
-        private void Map(object source, object dest)
+        private object Map(object source, Type destType)
         {
-            PropertyType destPropertyType = dest.GetType().GetTypeProperty();
+            PropertyType destPropertyType = destType.GetTypeProperty();
 
             string methodName = $"DTO.MappingMethod.{destPropertyType}MappingMethod";
             var obj = Type.GetType(methodName);
             var mappingMethod = (MappingMethod.MappingMethod)Activator.CreateInstance(obj);
-            mappingMethod.Map(source, ref dest, Map, map);
+            return mappingMethod.Map(source, destType, Map, map);
 
 
             //var sourceProperties = source.GetType().GetProperties();

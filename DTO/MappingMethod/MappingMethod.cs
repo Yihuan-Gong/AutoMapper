@@ -9,10 +9,10 @@ namespace DTO.MappingMethod
 {
     internal abstract class MappingMethod
     {
-        public abstract void Map(
+        public abstract object Map(
             object sourceObject,
-            ref object destObject,
-            Action<object, object> Mapper = null,
+            Type destType,
+            Func<object, Type, object> Mapper = null,
             Dictionary<string, string> map = null
         );
     }
